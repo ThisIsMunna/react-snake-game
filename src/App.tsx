@@ -17,7 +17,7 @@ const createBoard = (boardSize: Number) => {
 const speedCalculate = (fact:number) => {
   return 10000 / fact
 }
-const currentSpeed = 100;
+const currentSpeed = 10;
  const speed = speedCalculate(currentSpeed)
  const BOARDSIZE = 20;
 const score = 5;
