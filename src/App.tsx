@@ -29,7 +29,7 @@ const RIGHT = "RIGHT";
 let row = Math.round(BOARDSIZE / 3);
 let col = Math.round(BOARDSIZE / 3);
 
-let keypressArray: string[] = []
+let keypressArray: string[] = [RIGHT] 
 
 function App() {
   console.log("started");
@@ -66,14 +66,9 @@ function App() {
 
   const handleKeydown = (e: String) => {
     const tempDirection = getDirection(e);
-    if(keypressArray.length>0) {
       if (keypressArray[keypressArray.length-1] !== oppsiteDirection(tempDirection) && keypressArray[keypressArray.length-1] !== tempDirection){
         keypressArray.push(tempDirection)
       }
-    }
-    else{
-    keypressArray.push(tempDirection)
-    }
      };
 
   useInterval(() => handleDirection(), 100);
@@ -81,13 +76,11 @@ function App() {
   
 
   const handleDirection = () =>{
-    if (keypressArray.length >=  1) {
       const directionShouldbe = keypressArray[0]
       if( keypressArray.length>1){
       keypressArray.shift()
       }
       setDirection([direction[1], directionShouldbe])
-    }
   }
 //   useEffect( () => {
 //   const interval = setInterval(() => {
