@@ -161,7 +161,7 @@ const preyCell = () => {
               {row.map((cell, cellIdx) => (
                 <div
                   key={cell}
-                  className={`h-15 w-15  border-2 p-2 border-black ${
+                  className={`h-15 w-15   p-2  ${
                     check(cell) ? "bg-red-500" : notPrey(cell) ? "bg-blue-500": "bg-yellow-400"
                   }`}
                 ></div>
