@@ -50,17 +50,14 @@ const preyCell = () => {
   const [direction, setDirection] = useState([RIGHT, RIGHT]);
 
   const check = (num: number) => {
-    if(snake[0] === prey) {
-      setPrey(preyCell())
-      setScore(score+scoreIncreseRate)
-    }
+    
     for (let i = 0; i < snake.length; i++) {
       if (snake[i] === num) {
         console.log(`cell is ${snake[i]}`)
         return true;
       }
-      return false;
     }
+      return false;
   };
 
   const notPrey = (num: number ) => {
@@ -80,7 +77,7 @@ const preyCell = () => {
   const oppsiteDirection = (dir: string) => {
     if (dir === UP) return DOWN;
     if (dir === DOWN) return UP;
-    if (dir === LEFT) return RIGHT;
+    if (dir === LEFT) return RIGHT;///
     if (dir === RIGHT) return LEFT;
   };
 
@@ -140,7 +137,16 @@ const preyCell = () => {
     if (direction[i] === LEFT) col -= 1;
     if (direction[i] === RIGHT) col += 1;
     const temp = board[row][col];
-    setSnake([temp]);
+    setSnake([...snake, temp]);
+    if(temp === prey) {
+      setPrey(preyCell())
+      setScore(score+scoreIncreseRate)
+      setSnake([...snake, temp]);
+    } 
+    else{
+      const newSnake = snake.slice(1)
+      setSnake([...newSnake, temp])
+    }
   };
 
   return (
