@@ -169,6 +169,19 @@ const preyCell = () => {
             </div>
           ))}
         </div>
+        <div className="flex flex-col items-center p-5">
+          <div>
+                  <button onClick={() => handleKeydown("ArrowUp")} className="bg-red-500 active:bg-red-700 text-white p-3 px-5"><i className="fas fa-angle-up"></i></button>
+          </div>
+          <div>
+
+                  <button onClick={() => handleKeydown("ArrowLeft")} className="bg-red-500 active:bg-red-700 text-white p-3 px-5 my-1 mx-7"> <i className="fas fa-angle-left"></i> </button>
+                  <button  onClick={() => handleKeydown("ArrowRight")} className="bg-red-500 active:bg-red-700 text-white p-3 px-5 my-1 mx-7"><i className="fas fa-angle-right"></i></button>
+          </div>
+          <div>
+                  <button  onClick={() => handleKeydown("ArrowDown")} className="bg-red-500 active:bg-red-700  text-white p-3 px-5"><i className="fas fa-angle-down"></i></button>
+          </div>
+        </div>
       </div>
     </div>
   );
