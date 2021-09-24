@@ -160,15 +160,15 @@ const preyCell = () => {
         </div>
         <div className="flex flex-col items-center p-5">
           <div>
-                  <button onClick={() => handleKeydown("ArrowUp")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-up"></i></button>
+                  <button onClick={() => handleKeydown("ArrowUp")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-up"></i></button>
           </div>
           <div>
 
-                  <button onClick={() => handleKeydown("ArrowLeft")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"> <i className="fas fa-angle-left"></i> </button>
-                  <button  onClick={() => handleKeydown("ArrowRight")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-right"></i></button>
+                  <button onClick={() => handleKeydown("ArrowLeft")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"> <i className="fas fa-angle-left"></i> </button>
+                  <button  onClick={() => handleKeydown("ArrowRight")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-right"></i></button>
           </div>
           <div>
-                  <button  onClick={() => handleKeydown("ArrowDown")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-down"></i></button>
+                  <button  onClick={() => handleKeydown("ArrowDown")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-down"></i></button>
           </div>
         </div>
       </div>
