@@ -112,17 +112,6 @@ const preyCell = () => {
 
     setDirection([direction[1], directionShouldbe]);
   };
-  //   useEffect( () => {
-  //   const interval = setInterval(() => {
-  //     console.log(`settimeout working`)
-  //     if (direction === UP) row -= 1;
-  //     if (direction === DOWN) row += 1;
-  //     if (direction === LEFT) col -= 1;
-  //     if (direction === RIGHT) col += 1;
-  //     const temp = board[row][col];
-  //     setSnake([temp]);
-  //   }, 1000)
-  // },[])
 
   const moveSnake = () => {
     console.log(`direction in move snake is ${direction}`);
@@ -171,15 +160,15 @@ const preyCell = () => {
         </div>
         <div className="flex flex-col items-center p-5">
           <div>
-                  <button onClick={() => handleKeydown("ArrowUp")} className="bg-red-500 active:bg-red-700 text-white p-3 px-5"><i className="fas fa-angle-up"></i></button>
+                  <button onClick={() => handleKeydown("ArrowUp")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-up"></i></button>
           </div>
           <div>
 
-                  <button onClick={() => handleKeydown("ArrowLeft")} className="bg-red-500 active:bg-red-700 text-white p-3 px-5 my-1 mx-7"> <i className="fas fa-angle-left"></i> </button>
-                  <button  onClick={() => handleKeydown("ArrowRight")} className="bg-red-500 active:bg-red-700 text-white p-3 px-5 my-1 mx-7"><i className="fas fa-angle-right"></i></button>
+                  <button onClick={() => handleKeydown("ArrowLeft")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"> <i className="fas fa-angle-left"></i> </button>
+                  <button  onClick={() => handleKeydown("ArrowRight")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-right"></i></button>
           </div>
           <div>
-                  <button  onClick={() => handleKeydown("ArrowDown")} className="bg-red-500 active:bg-red-700  text-white p-3 px-5"><i className="fas fa-angle-down"></i></button>
+                  <button  onClick={() => handleKeydown("ArrowDown")} className="bg-red-500 border-4 border-red-500 active:border-yellow-300 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-down"></i></button>
           </div>
         </div>
       </div>
