@@ -18,8 +18,6 @@ const speedCalculate = (fact: number) => {
   return 10000 / fact;
 };
 
-const currentSpeed = 15;
-const speed = speedCalculate(currentSpeed);
 const BOARDSIZE = 20;
 const score = 5;
 const board = createBoard(BOARDSIZE);
@@ -32,40 +30,39 @@ let col = Math.round(BOARDSIZE / 3);
 let keypressArray: string[] = [RIGHT];
 
 function App() {
-
-
-const preyCell = () => {
-   const randomNum = randomIntFromInterval(1, BOARDSIZE*BOARDSIZE) 
-   for (let i = 0; i < snake.length; i++) {
-     if (snake[i] === randomNum) preyCell();
-   }
-   return randomNum
-  
-  }
+  const [levelValue, setLevelValue] = useState(1);
+  const scoreIncreseRate = 5 * levelValue;
+  const currentSpeed = 15 * levelValue;
+  const speed = speedCalculate(currentSpeed);
+  const preyCell = () => {
+    const randomNum = randomIntFromInterval(1, BOARDSIZE * BOARDSIZE);
+    for (let i = 0; i < snake.length; i++) {
+      if (snake[i] === randomNum) preyCell();
+    }
+    return randomNum;
+  };
   const head = board[row][col];
   const [snake, setSnake] = useState([head]);
-  const [score, setScore] = useState(0)
-  const [scoreIncreseRate, setScoreIncreseRate ] = useState(5)
+  const [score, setScore] = useState(0);
   const [prey, setPrey] = useState(preyCell());
   const [direction, setDirection] = useState([RIGHT, RIGHT]);
 
   const check = (num: number) => {
-    
     for (let i = 0; i < snake.length; i++) {
       if (snake[i] === num) {
-        console.log(`cell is ${snake[i]}`)
+        console.log(`cell is ${snake[i]}`);
         return true;
       }
     }
-      return false;
+    return false;
   };
 
-  const notPrey = (num: number ) => {
-      if (num === prey) {
-        return false;
-      }
-      return true;
-  }
+  const notPrey = (num: number) => {
+    if (num === prey) {
+      return false;
+    }
+    return true;
+  };
 
   const getDirection = (e: String) => {
     if (e === "ArrowUp") return UP;
@@ -77,13 +74,14 @@ const preyCell = () => {
   const oppsiteDirection = (dir: string) => {
     if (dir === UP) return DOWN;
     if (dir === DOWN) return UP;
-    if (dir === LEFT) return RIGHT;///
+    if (dir === LEFT) return RIGHT; ///
     if (dir === RIGHT) return LEFT;
   };
 
   useEffect(() => {
     console.log("added event listener");
     window.addEventListener("keydown", (e) => {
+      e.preventDefault();
       handleKeydown(e.key);
     });
   }, []);
@@ -127,22 +125,41 @@ const preyCell = () => {
     if (direction[i] === RIGHT) col += 1;
     const temp = board[row][col];
     setSnake([...snake, temp]);
-    if(temp === prey) {
-      setPrey(preyCell())
-      setScore(score+scoreIncreseRate)
+    if (temp === prey) {
+      setPrey(preyCell());
+      setScore(score + scoreIncreseRate);
       setSnake([...snake, temp]);
-    } 
-    else{
-      const newSnake = snake.slice(1)
-      setSnake([...newSnake, temp])
+    } else {
+      const newSnake = snake.slice(1);
+      setSnake([...newSnake, temp]);
     }
+  };
+
+  const handleLevelChange = (value: string) => {
+    console.log(`value is ${value}`)
+    const intValue = parseInt(value);
+    setLevelValue(intValue);
   };
 
   return (
     <div>
       <div className="bg-gray-500 min-h-screen items-center justify-center flex flex-col">
+        <div>
+          <select
+            value={levelValue}
+            onChange={(e) => {handleLevelChange(e.target.value)}}
+          >
+            <option value={"1"}>Level 1</option>
+            <option value={"2"}>Level 2</option>
+            <option value={"3"}>Level 3</option>
+            <option value={"4"}>Level 4</option>
+            <option value={"5"}>Level 5</option>
+          </select>
+        </div>
         <div className="text-center">
-          <h1 className="font-bold text-blue-100 text-3xl p-5">Score: <span className="text-white">{score}</span></h1>
+          <h1 className="font-bold text-blue-100 text-3xl p-5">
+            Score: <span className="text-white">{score}</span>
+          </h1>
         </div>
         <div className="border-2 border-black">
           {board.map((row, rowIdx) => (
@@ -151,7 +168,11 @@ const preyCell = () => {
                 <div
                   key={cell}
                   className={`h-15 w-15   p-2  ${
-                    check(cell) ? "bg-red-500" : notPrey(cell) ? "bg-blue-500": "bg-yellow-400"
+                    check(cell)
+                      ? "bg-red-500"
+                      : notPrey(cell)
+                      ? "bg-blue-500"
+                      : "bg-yellow-400"
                   }`}
                 ></div>
               ))}
@@ -160,15 +181,35 @@ const preyCell = () => {
         </div>
         <div className="flex flex-col items-center p-5">
           <div>
-                  <button onClick={() => handleKeydown("ArrowUp")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-up"></i></button>
+            <button
+              onClick={() => handleKeydown("ArrowUp")}
+              className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"
+            >
+              <i className="fas fa-angle-up"></i>
+            </button>
           </div>
           <div>
-
-                  <button onClick={() => handleKeydown("ArrowLeft")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"> <i className="fas fa-angle-left"></i> </button>
-                  <button  onClick={() => handleKeydown("ArrowRight")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-right"></i></button>
+            <button
+              onClick={() => handleKeydown("ArrowLeft")}
+              className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"
+            >
+              {" "}
+              <i className="fas fa-angle-left"></i>{" "}
+            </button>
+            <button
+              onClick={() => handleKeydown("ArrowRight")}
+              className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"
+            >
+              <i className="fas fa-angle-right"></i>
+            </button>
           </div>
           <div>
-                  <button  onClick={() => handleKeydown("ArrowDown")} className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"><i className="fas fa-angle-down"></i></button>
+            <button
+              onClick={() => handleKeydown("ArrowDown")}
+              className="bg-red-500 border-4 border-red-500 active:border-yellow-400 active:bg-red-700 p-2 px-4 my-1 mx-7 text-white"
+            >
+              <i className="fas fa-angle-down"></i>
+            </button>
           </div>
         </div>
       </div>
