@@ -30,9 +30,11 @@ let col = Math.round(BOARDSIZE / 3);
 let keypressArray: string[] = [RIGHT];
 
 function App() {
+  const [gameOver, setGameOver] = useState(false)
   const [levelValue, setLevelValue] = useState(1);
   const scoreIncreseRate = 5 * levelValue;
-  const currentSpeed = 15 * levelValue;
+  const [speedMultiplier, setSpeedMultiplier] = useState(15)
+  const currentSpeed = speedMultiplier * levelValue;
   const speed = speedCalculate(currentSpeed);
   const preyCell = () => {
     const randomNum = randomIntFromInterval(1, BOARDSIZE * BOARDSIZE);
@@ -41,7 +43,11 @@ function App() {
     }
     return randomNum;
   };
-  const head = board[row][col];
+  let head = 0;
+  if(!gameOver) {
+  const head: number | undefined = board[row][col];
+  }
+
   const [snake, setSnake] = useState([head]);
   const [score, setScore] = useState(0);
   const [prey, setPrey] = useState(preyCell());
@@ -112,6 +118,7 @@ function App() {
   };
 
   const moveSnake = () => {
+    if (gameOver === true) return 
     console.log(`direction in move snake is ${direction}`);
     let i = 1;
 
@@ -123,27 +130,50 @@ function App() {
     if (direction[i] === DOWN) row += 1;
     if (direction[i] === LEFT) col -= 1;
     if (direction[i] === RIGHT) col += 1;
-    const temp = board[row][col];
-    setSnake([...snake, temp]);
+    if(row < 0 || col < 0 || row >= BOARDSIZE || col >= BOARDSIZE) {
+      setGameOver(true)
+      return
+    }
+    const temp: number | undefined = board[row][col];
+    
     if (temp === prey) {
+      if(checkGameOver(snake, temp)) {
+    setGameOver(true)
+    return
+      }
+      else{
       setPrey(preyCell());
       setScore(score + scoreIncreseRate);
       setSnake([...snake, temp]);
+      }
     } else {
+
       const newSnake = snake.slice(1);
+      if(checkGameOver(newSnake, temp)) {
+    setGameOver(true)
+    return
+      }
+      else{
       setSnake([...newSnake, temp]);
+      }
     }
   };
 
   const handleLevelChange = (value: string) => {
-    console.log(`value is ${value}`)
     const intValue = parseInt(value);
     setLevelValue(intValue);
   };
 
+  const checkGameOver = (snake: number[], nextMove: number) => {
+        if (snake.includes(nextMove)) return true 
+        if (nextMove > BOARDSIZE*BOARDSIZE || nextMove < 1 || nextMove === undefined) return true
+        return false
+  }
+
   return (
     <div>
       <div className="bg-gray-500 min-h-screen items-center justify-center flex flex-col">
+        {gameOver && <div className="absolute text-2xl font-bold text-red-100"> Game Over! </div>}
         <div>
           <select
             value={levelValue}
